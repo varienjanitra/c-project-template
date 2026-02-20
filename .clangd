@@ -1,31 +1,15 @@
+# .clangd
 CompileFlags:
+  # This tells clangd where to find the compilation database
+  # The "." means "look in the current directory"
+  CompilationDatabase: "."
+  
+  # Any flags added here will be APPENDED to what bear finds.
+  # Usually, you don't need much here anymore, but sometimes 
+  # extra help for the LSP is useful.
   Add: [
-    # Standards & Core
-    -std=c23,
-    -pthread,
-    -Wall, -Wextra, -Wpedantic, -Wshadow, -Wconversion,
-    
-    # Written for clarity only
-    # Essentials refer above
-    # Type Safety & Casting
-     -Wsign-conversion, -Wdouble-promotion, -Wfloat-equal,
-    -Wcast-qual, -Wcast-align, -Wwrite-strings,
-    
-    # Modern C & Best Practices
-    -Wstrict-prototypes, -Wmissing-prototypes,
-    -Wimplicit-fallthrough, -Wvla, -Wundef,
-    
-    # Logic & UB Prevention
-    -Wstrict-overflow=5,
-    -Wformat=2,
-    -Wnull-dereference,
-    
-    # System/Environment (Adjust as needed)
-    -D_DEFAULT_SOURCE,
-    
-
-    # Exclusion of rigorous rule for external library
-    -isystem, extern,
+    -isystemextern,
+    -Wno-unknown-pragmas # Stops the LSP moaning about compiler-specific bits
   ]
 
 Diagnostics:
@@ -39,7 +23,4 @@ Diagnostics:
       cert-*,
       concurrency-*,
       misc-unused-parameters,
-    ]
-    Remove: [
-      
     ]
